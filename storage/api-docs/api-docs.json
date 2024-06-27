@@ -1,0 +1,225 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Library API Documentation",
+        "description": "API documentation for Library Application",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/library/book/borrow": {
+            "post": {
+                "tags": [
+                    "Library"
+                ],
+                "summary": "Borrow Book (POST)",
+                "description": "Add new borrowed copies",
+                "operationId": "0b3df8ea23d82454b79ca2c585464fd2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "student_id": {
+                                        "type": "integer"
+                                    },
+                                    "copy_id": {
+                                        "type": "integer"
+                                    },
+                                    "expected_return_date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Book is borrowed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Book is borrowed successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Something went wrong"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/library/book/return/{id}": {
+            "put": {
+                "tags": [
+                    "Library"
+                ],
+                "summary": "Return Book (PUT)",
+                "description": "Update borrowed copies",
+                "operationId": "ca6f69262f0d4b28f29ec8b6f5ac44eb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Copy ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "A new borrowed copy": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "book_id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "status_id": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Something went wrong"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/library/report": {
+            "get": {
+                "tags": [
+                    "Library"
+                ],
+                "summary": "Generate Report (get)",
+                "description": "Get all borrowed copies with their books and statuses",
+                "operationId": "0ab64dba5e68bd69f4c79c6b51278ff6",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "All borrowed copies with their books and statuses": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "Book": {
+                                                        "type": "string",
+                                                        "example": "Clean Code"
+                                                    },
+                                                    "Copy ID": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "Status": {
+                                                        "type": "string",
+                                                        "example": "Borrowed"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Something went wrong"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Library",
+            "description": "API Endpoints for Users"
+        }
+    ]
+}
